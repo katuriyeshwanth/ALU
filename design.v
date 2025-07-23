@@ -34,3 +34,21 @@ adder4 a1(z[7:4],c[2],x[7:4],y[7:4],c[1]);
 adder4 a2(z[11:8],c[3],x[11:8],y[11:8],c[2]);
 adder4 a3(z[15:12],carry,x[15:12],y[15:12],c[3]);
 endmodule
+
+Using Case statement
+module alu4_bit(op,a,b,f);
+input [1:0]op;
+input [7:0]a,b;
+output reg [7:0]f;
+parameter add=2'b00,sub=2'b01,mul=2'b10,div=2'b11;
+always @(*)
+begin
+case (op)
+add : f=a+b;
+sub : f=a-b;
+mul : f=a*b;
+div : f=(b!=0)? a/b : 8'h00; //prevent division by zero
+default f=8'h00;
+endcase
+end
+endmodule
