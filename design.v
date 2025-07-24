@@ -52,3 +52,22 @@ default f=8'h00;
 endcase
 end
 endmodule
+
+
+with enable
+
+module alu(a,b,en,op,out);
+input [7:0]a,b;
+input en;
+input [2:0]op;
+output [7:0] out;
+reg [7:0]alu_reg;
+assign out= (en==1)?alu_reg : 4'bz;
+always @(*)
+case (op)
+3'b000:alu_reg=a+b;
+3'b001:alu_reg=a-b;
+3'b011:alu_reg=~a;
+default :alu_reg=4'b0;
+endcase
+endmodule
